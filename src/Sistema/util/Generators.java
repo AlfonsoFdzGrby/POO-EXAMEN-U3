@@ -136,10 +136,10 @@ public class Generators {
 
     // ------------------------------------- CLABE (18 DÍGITOS) --------------------------------------
 
-    public static String GenerateCLABE(Sucursal sucursal){
+    public static String GenerateCLABE(NombreSucursal sucursal){
         String CLABE = "481";
 
-        if(sucursal == Sucursal.Acueducto){
+        if(sucursal == NombreSucursal.Acueducto){
             CLABE += "001";
         }else{
             CLABE += "002";

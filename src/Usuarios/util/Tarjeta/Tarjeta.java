@@ -15,7 +15,7 @@ public class Tarjeta {
     private LocalDate fechaVencimiento; // 5 años después de creada
     private LocalDateTime ultimoMovimiento; // establecer en .now()
 
-    public Tarjeta(TipoDeTarjeta tipoDeTarjeta, double saldo, Sucursal sucursal) {
+    public Tarjeta(TipoDeTarjeta tipoDeTarjeta, double saldo, NombreSucursal sucursal) {
         this.tipoDeTarjeta = tipoDeTarjeta;
         this.numTarjeta = Generators.GenerateCardNum();
         this.fechaCreacion = LocalDate.now();

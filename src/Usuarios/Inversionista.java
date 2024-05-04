@@ -10,8 +10,8 @@ public class Inversionista extends Usuario {
     double fondosAportados;
 
     public Inversionista(String nombre, String apellidos, LocalDate fechaDeNacimiento, String ciudad, String estado,
-            boolean eshombre) {
-        super(nombre, apellidos, fechaDeNacimiento, ciudad, estado, eshombre);
+            boolean eshombre, String nombreUsuario, String contraseña) {
+        super(nombre, apellidos, fechaDeNacimiento, ciudad, estado, eshombre, nombreUsuario, contraseña);
         this.fechaRegistro = LocalDate.now();
         this.fondosAportados = 0;
         this.fechaMovimiento = LocalDate.now();

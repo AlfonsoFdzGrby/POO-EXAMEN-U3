@@ -9,6 +9,10 @@ public class Sistema {
     Sucursal acueducto = new Sucursal(NombreSucursal.Acueducto);
     Sucursal madero = new Sucursal(NombreSucursal.Madero);
     
+    public Sistema() {
+        
+    }
+
     public Sucursal getAcueducto() {
         return acueducto;
     }

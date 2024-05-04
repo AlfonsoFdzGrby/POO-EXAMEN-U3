@@ -1,6 +1,6 @@
 package Sistema.util;
 
-public enum Sucursal {
+public enum NombreSucursal {
     Madero,
     Acueducto
 }
