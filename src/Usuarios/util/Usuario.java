@@ -19,5 +19,7 @@ public abstract class Usuario {
         this.eshombre = eshombre;
     }
 
-    
+    public String getNombreCompleto(){
+        return nombre + " " + apellidos;
+    }
 }
