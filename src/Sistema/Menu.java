@@ -82,6 +82,7 @@ public class Menu {
                 }else if(usuarioEnSesion.getUsuarioActual() instanceof Inversionista){
                     menuInversionista();
                 }else{
+                    // Le quise poner un switch Lambda pero me puso caprichos ésta madre
                     switch (usuarioEnSesion.getUsuarioActual().getRol()) {
                         case Rol.Gerente:
                             menuGerente();
@@ -109,7 +110,7 @@ public class Menu {
     // ----------------------------------------- MENÚS USUARIOS -----------------------------------------
 
     private static void menuCliente(){
-        int opc = 1;
+        int opc = 0;
         while(usuarioEnSesion.getUsuarioActual()!=null){
             Tools.printHeader("CLIENTE");
             System.out.println("Seleccione una opción:");
@@ -131,18 +132,56 @@ public class Menu {
     }
 
     private static void menuInversionista(){
-        Tools.printHeader("INVERSIONISTA");
-        System.out.println("Seleccione una opción:");
+        int opc = 0;
+        while(usuarioEnSesion.getUsuarioActual()!=null){
+            Tools.printHeader("INVERSIONISTA");
+            System.out.println("Seleccione una opción:");
+            System.out.println("1. Registar ejecutivo");
+            System.out.println("2. Modificar ejecutivo");
+            System.out.println("3. Eliminar ejecutivo");
+            System.out.println("4. Consultar ejecutivo");
+            System.out.println("5. Cerrar sesión");
+            System.out.print(">> ");
+            opc = Tools.nextInt();
+            switch (opc) {
+                case 5 -> usuarioEnSesion.setUsuario(null);
+            }
+        }
+        
     }
 
+    /* Los capturistas al parecer sólo deben de hacer operaciones sobre los Ejecutivos XDD 
+     * Y los ejecutivos son los que deben hacer el CRUD de los clientes, etc.
+    */
     private static void menuCapturista(){
         Tools.printHeader("CAPTURISTA");
         System.out.println("Seleccione una opción:");
     }
 
     private static void menuEjecutivo(){
-        Tools.printHeader("EJECUTIVO");
-        System.out.println("Seleccione una opción:");
+        int opc = 0;
+        while(usuarioEnSesion.getUsuarioActual()!=null){
+            Tools.printHeader("EJECUTIVO");
+            System.out.println("Seleccione una opción:");
+            System.out.println("1. Registrar Cliente");
+            System.out.println("2. Modificar Cliente");
+            System.out.println("3. Eliminar Cliente");
+            // 3 opciones: Información de un sólo cliente, información de todos los clientes, e información propia
+            System.out.println("4. Mostrar información");
+            System.out.println("5. Cerrar sesión");
+            System.out.print(">> ");
+
+            opc = Tools.nextInt();
+
+            switch (opc) {
+                //case 1 -> registrarUsuario();
+                //case 2 -> modificarUsuario();
+                //case 3 -> eliminarUsuario();
+                //case 4 -> mostrarInformacion();
+                case 5 -> usuarioEnSesion.setUsuario(null);
+            }
+        }
+        
     }
 
     private static void menuGerente(){
@@ -151,6 +190,13 @@ public class Menu {
     }
 
     // ---------------------------------------- MENÚS FUNCIONES ----------------------------------------
+
+    /* Algunos métodos reciben un atributo "asksforUser" para que pueda ser utilizado tanto 
+     * por capturistas como por el cliente y así no tener que escribir líneas redundantes
+     * 
+     * True: Llama una función para buscar al usuario
+     * False: Trabaja directamente con el usuarioEnSesion
+    */
 
     private static void crearTarjeta(boolean asksforUser){
         Tools.printHeader("CREAR TARJETA");

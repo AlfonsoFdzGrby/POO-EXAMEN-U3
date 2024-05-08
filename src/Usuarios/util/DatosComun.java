@@ -2,11 +2,9 @@ package Usuarios.util;
 
 import Sistema.util.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
 
 public class DatosComun {
     private static Scanner sc = new Scanner(System.in);
@@ -18,10 +16,15 @@ public class DatosComun {
         Tools.printHeader("INGRESE LOS DATOS");
         System.out.println("Ingrese su nombre: ");
         System.out.print(">> ");
-        String nombre = sc.next();
-        System.out.println("Ingrese su apellido: ");
+        String nombre = sc.nextLine();
+        System.out.println("Ingrese su primer apellido: ");
         System.out.print(">> ");
-        String apellido = sc.next();
+        String apellido1 = sc.nextLine();
+        System.out.println("Ingrese su segundo apellido: ");
+        System.out.print(">> ");
+        String apellido2 = sc.nextLine();
+        String apellido = apellido1 + " " + apellido2;
+
         while (flag) {
             System.out.println("Ingrese su fecha de nacimiento: (dd-MM-yyyy)");
             System.out.print(">> ");
@@ -32,12 +35,13 @@ public class DatosComun {
                 System.out.println("Ingreso incorrectamente la fecha");
             }
         }
+
         System.out.println("Ingrese su ciudad de residencia: ");
         System.out.print(">> ");
         String ciudad = sc.nextLine();
         System.out.println("Ingrese su estado de residencia: ");
         System.out.print(">> ");
-        String estado = sc.next();
+        String estado = sc.nextLine();
         System.out.println("Ingrese su genero: (H/M)");
         System.out.print(">> ");
         char gen = sc.nextLine().charAt(0);
@@ -45,16 +49,9 @@ public class DatosComun {
         String username = conseguirUsername();
         System.out.println("Ingrese su contrasena: ");
         System.out.print(">> ");
-        String password = sc.next();
+        String password = sc.nextLine();
         ArrayList<String> datosComun = new ArrayList<>();
-        datosComun.add(nombre);
-        datosComun.add(apellido);
-        datosComun.add(fechaNacimiento.toString());
-        datosComun.add(ciudad);
-        datosComun.add(estado);
-        datosComun.add(genero);
-        datosComun.add(username);
-        datosComun.add(password);
+        datosComun.addAll(Arrays.asList(nombre, apellido, fechaNacimiento.toString(), ciudad, estado, genero, username, password));
 
         return datosComun;
     }
