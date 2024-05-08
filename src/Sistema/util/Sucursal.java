@@ -1,5 +1,6 @@
 package Sistema.util;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ public class Sucursal {
         usuarios.put(Rol.Ejecutivo, new ArrayList<Usuario>());
         usuarios.put(Rol.Cliente, new ArrayList<Usuario>());
         usuarios.put(Rol.Inversionista, new ArrayList<Usuario>());
+        usuarios.get(Rol.Cliente).add(new Cliente("Paquito", "Stanley Camaney", LocalDate.of(2005, 2, 19), "Morelia", "Michoacán", true, "pqstan", "1234", "Calle banqueta #523",NombreSucursal.Acueducto));
     }
 
     public NombreSucursal getNombre() {
@@ -25,10 +27,16 @@ public class Sucursal {
     }
 
     public void agregarUsuario(Rol rol, Usuario usuario){
-        usuarios.get(rol).add(usuario);
+        ArrayList<Usuario> user = new ArrayList<>();
+        user.add(usuario);
+        usuarios.get(rol).addAll(user);
     }
 
     public static HashMap<Rol, ArrayList<Usuario>> getUsuarios() {
         return usuarios;
+    }
+
+    public static void quitarUsuario(Rol rol, Usuario usuario){
+        usuarios.get(rol).remove(usuario);
     }
 }

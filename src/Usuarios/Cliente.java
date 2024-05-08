@@ -29,6 +29,7 @@ public class Cliente extends Usuario {
         tarjetas.put(TipoDeTarjeta.Simplicity, new ArrayList<Tarjeta>());
         tarjetas.put(TipoDeTarjeta.Platino, new ArrayList<Tarjeta>());
         tarjetas.put(TipoDeTarjeta.Oro, new ArrayList<Tarjeta>());
+        tarjetas.put(TipoDeTarjeta.Debito, new ArrayList<>());
     }
 
     public void agregarTarjeta(TipoDeTarjeta tipo, Tarjeta tarjeta){
@@ -64,6 +65,10 @@ public class Cliente extends Usuario {
 
     public static void imprimirClientes(){
         //TODO
+    }
+
+    public HashMap<TipoDeTarjeta, ArrayList<Tarjeta>> getTarjetas() {
+        return tarjetas;
     }
 
 }

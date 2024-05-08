@@ -21,7 +21,7 @@ public class Tarjeta {
         this.fechaCreacion = LocalDate.now();
         this.cvv = Generators.GenerateCVV();
         this.clabe = Generators.GenerateCLABE(sucursal);
-        this.fechaVencimiento = fechaCreacion.withYear(fechaVencimiento.getYear()+5);
+        this.fechaVencimiento = LocalDate.now().plusYears(5);
         this.ultimoMovimiento = LocalDateTime.now();
         this.saldo = saldo;
     }

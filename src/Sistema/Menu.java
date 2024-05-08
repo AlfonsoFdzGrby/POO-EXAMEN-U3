@@ -67,7 +67,7 @@ public class Menu {
 
             System.out.println("Ingrese su contraseña");
             System.out.println("TIENE " + intentos + " INTENTOS");
-            System.out.println(">> ");
+            System.out.print(">> ");
             String contraseña = sc.nextLine();
 
             if(contraseña.equals(usuario.getContraseña())){
@@ -113,7 +113,7 @@ public class Menu {
         while(opc<3 && opc>0){
             Tools.printHeader("CLIENTE");
             System.out.println("Seleccione una opción:");
-            System.out.println("1. Crear tarjeta");
+            System.out.println("1. Crear tarjeta (débito únicamente)");
             System.out.println("2. Consultar tarjetas");
             System.out.println("3. ");
             System.out.print(">> ");
@@ -122,7 +122,7 @@ public class Menu {
 
             switch (opc) {
                 case 1 -> crearTarjeta(false);
-                case 2 -> consultarTarjetas();
+                case 2 -> consultarTarjetas(false);
             }
         }
         
@@ -167,42 +167,49 @@ public class Menu {
             cliente = (Cliente)usuarioEnSesion.getUsuarioActual();
         }
 
-        Tarjeta tarjeta = null;
+        if(!(cliente.getTarjetas().get(TipoDeTarjeta.Debito).isEmpty())){
+            System.out.println("El cliente ya tiene una tarjeta de débito");
+            System.out.println("Por favor actualice su tarjeta a crédito para continuar");
+        }else{
+            sucursalActual.getSucursalActual().getUsuarios().get(Rol.Cliente).remove(cliente);
 
-        /* TODO: QUITAR CÓDIGO DE MÁS, SÓLO SE PUEDEN CREAR TARJETAS DE DÉBITO Y 
-         * ACTUALIZAR A CRÉDITO. NO SE PUEDEN CREAR TARJETAS DE CRÉDITO */ 
+            Tarjeta tarjeta = null;
 
-        System.out.println("Ingrese el tipo de tarjeta que desea:");
-        System.out.println("1. Débito");
-        System.out.println("2. Crédito");
-        System.out.print(">> ");
-        int opc = Tools.nextInt();
-        
-        switch (opc) {
-            case 1 -> {
-                /* IMPORTANTE: Si el cliente ya tiene una tarjeta de débito se tiene que validar 
-                 * que no puede crear otra hasta que actualice la cuenta que ya tiene a alguna cuenta
-                 * de crédito (Simplicity, platino u oro)
-                */
-                System.out.println("TARJETA DE DÉBITO");
-                System.out.println("Ingrese el depósito inicial de la tarjeta:");
-                System.out.print(">> $");
-                double deposito = Tools.nextDouble();
-                tarjeta = new Tarjeta(TipoDeTarjeta.Debito, deposito , sucursalActual.getSucursalActual().getNombre());
-                // TODO: AGREGAR LA TARJETA AL HASHMAP DE TARJETAS DEL CLIENTE
-                System.out.println("¡Su tarjeta ha sido creada exitosamente!");
-                Tools.next();
-            }
-            case 2 -> {
-                
-                System.out.println("TARJETA DE CRÉDITO");
-                System.out.println("Ingrese el depósito inicial de la tarjeta:");
-            }
+            /* IMPORTANTE: Si el cliente ya tiene una tarjeta de débito se tiene que validar 
+                * que no puede crear otra hasta que actualice la cuenta que ya tiene a alguna cuenta
+                * de crédito (Simplicity, platino u oro)
+            */
+            System.out.println("TARJETA DE DÉBITO");
+            System.out.println("Ingrese el depósito inicial de la tarjeta:");
+            System.out.print(">> $");
+            double deposito = Tools.nextDouble();
+            tarjeta = new Tarjeta(TipoDeTarjeta.Debito, deposito , sucursalActual.getSucursalActual().getNombre());
+            cliente.agregarTarjeta(TipoDeTarjeta.Debito, tarjeta);
+            usuarioEnSesion.setUsuario(cliente);
+            sucursalActual.getSucursalActual().getUsuarios().get(Rol.Cliente).add(cliente);
+            System.out.println("¡Su tarjeta ha sido creada exitosamente!");
         }
+        Tools.next();
     }
+    
 
-    private static void consultarTarjetas(){
-
+    private static void consultarTarjetas(boolean asksforUser){
+        Tools.printHeader("CONSULTAR TARJETAS");
+        Cliente cliente = null;
+        if(asksforUser){
+            while(true){
+                Usuario usuario = Usuario.buscarUsuario();
+                if(usuario instanceof Cliente){
+                    cliente = (Cliente)usuario;
+                }else{
+                    System.out.println("El usuario especificado no es un cliente");
+                    System.out.println("Por favor ingrese un cliente válido");
+                }
+            }
+        }else{
+            cliente = (Cliente)usuarioEnSesion.getUsuarioActual();
+        }
+        
     }
     
 }

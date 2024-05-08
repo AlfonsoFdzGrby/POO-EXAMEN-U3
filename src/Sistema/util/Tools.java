@@ -6,9 +6,9 @@ public class Tools {
     private static Scanner sc = new Scanner(System.in);
 
     public static void printHeader(String header){
-        System.out.println("==========================================");
+        System.out.println("===============================================================");
         System.out.println(header);
-        System.out.println("==========================================");
+        System.out.println("===============================================================");
     }
 
     public static void next(){
