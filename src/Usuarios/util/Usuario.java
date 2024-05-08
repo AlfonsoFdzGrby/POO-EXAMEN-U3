@@ -38,7 +38,7 @@ public abstract class Usuario {
 
     @Override
     public String toString() {
-        return String.format("DATOS DE CUENTA\n   * Nombre del usuario: %s\n   * Fecha de nacimiento: %s\n   * Ciudad y Estado: %s\n   * Género: %s\n   * Nombre de usuario: %s\n", this.nombreUsuario, this.fechaDeNacimiento.toString(), this.ciudad + ", " + this.estado, eshombre ? "Hombre" : "Mujer", this.nombreUsuario);
+        return String.format("   * Nombre del usuario: %s\n   * Fecha de nacimiento: %s\n   * Ciudad y Estado: %s\n   * Género: %s\n   * Nombre de usuario: %s\n", this.nombreUsuario, this.fechaDeNacimiento.toString(), this.ciudad + ", " + this.estado, eshombre ? "Hombre" : "Mujer", this.nombreUsuario);
     }
 
     public String getNombreCompleto(){

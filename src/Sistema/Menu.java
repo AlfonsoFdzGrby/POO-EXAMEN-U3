@@ -110,12 +110,13 @@ public class Menu {
 
     private static void menuCliente(){
         int opc = 1;
-        while(opc<3 && opc>0){
+        while(usuarioEnSesion.getUsuarioActual()!=null){
             Tools.printHeader("CLIENTE");
             System.out.println("Seleccione una opción:");
             System.out.println("1. Crear tarjeta (débito únicamente)");
             System.out.println("2. Consultar tarjetas");
-            System.out.println("3. ");
+            System.out.println("3. Consultar datos personales");
+            System.out.println("4. Cerrar sesión");
             System.out.print(">> ");
             
             opc = Tools.nextInt();
@@ -123,9 +124,10 @@ public class Menu {
             switch (opc) {
                 case 1 -> crearTarjeta(false);
                 case 2 -> consultarTarjetas(false);
+                case 3 -> consultarDatos();
+                case 4 -> usuarioEnSesion.setUsuario(null);
             }
         }
-        
     }
 
     private static void menuInversionista(){
@@ -211,6 +213,12 @@ public class Menu {
         }
 
         cliente.mostrarTarjetas();
+        Tools.next();
+    }
+
+    private static void consultarDatos(){
+        Tools.printHeader("CONSULTA DE DATOS PERSONALES");
+        System.out.print(usuarioEnSesion.getUsuarioActual().toString());
         Tools.next();
     }
     
