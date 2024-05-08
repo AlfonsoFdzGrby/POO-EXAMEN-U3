@@ -209,7 +209,9 @@ public class Menu {
         }else{
             cliente = (Cliente)usuarioEnSesion.getUsuarioActual();
         }
-        
+
+        cliente.mostrarTarjetas();
+        Tools.next();
     }
     
 }

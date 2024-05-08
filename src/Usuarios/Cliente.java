@@ -29,7 +29,7 @@ public class Cliente extends Usuario {
         tarjetas.put(TipoDeTarjeta.Simplicity, new ArrayList<Tarjeta>());
         tarjetas.put(TipoDeTarjeta.Platino, new ArrayList<Tarjeta>());
         tarjetas.put(TipoDeTarjeta.Oro, new ArrayList<Tarjeta>());
-        tarjetas.put(TipoDeTarjeta.Debito, new ArrayList<>());
+        tarjetas.put(TipoDeTarjeta.Debito, new ArrayList<Tarjeta>());
     }
 
     public void agregarTarjeta(TipoDeTarjeta tipo, Tarjeta tarjeta){
@@ -69,6 +69,53 @@ public class Cliente extends Usuario {
 
     public HashMap<TipoDeTarjeta, ArrayList<Tarjeta>> getTarjetas() {
         return tarjetas;
+    }
+
+    public void mostrarTarjetas(){
+        System.out.println("TARJETAS DE " + getNombreCompleto().toUpperCase());
+        
+        System.out.println("DÉBITO");
+        if(tarjetas.get(TipoDeTarjeta.Debito).isEmpty()){
+            System.out.println("   * No hay tarjetas de débito registradas");
+        }else{
+            System.out.println("   * 1: " + tarjetas.get(TipoDeTarjeta.Debito).get(0).getNumTarjeta());
+        }
+        int indicador = 1;
+        System.out.println("CRÉDITO");
+
+        if(tarjetas.get(TipoDeTarjeta.Simplicity).isEmpty()){
+            System.out.println("   * No hay tarjetas Simplicity registradas");
+        }else{
+            System.out.println("Simplicity:");
+            for (Tarjeta tarjetaAMostrar : tarjetas.get(TipoDeTarjeta.Simplicity)) {
+                System.out.println("   * " + indicador + ": " + tarjetaAMostrar.getNumTarjeta());
+                indicador++;
+            }
+            indicador = 1;
+        }
+
+        if(tarjetas.get(TipoDeTarjeta.Platino).isEmpty()){
+            System.out.println("   * No hay tarjetas Platino registradas");
+        }else{
+            System.out.println("Platino:");
+            for (Tarjeta tarjetaAMostrar : tarjetas.get(TipoDeTarjeta.Platino)) {
+                System.out.println("   * " + indicador + ": " + tarjetaAMostrar.getNumTarjeta());
+                indicador++;
+            }
+            indicador = 1;
+        }
+
+        if(tarjetas.get(TipoDeTarjeta.Oro).isEmpty()){
+            System.out.println("   * No hay tarjetas Oro registradas");
+        }else{
+            System.out.println("Oro:");
+            for (Tarjeta tarjetaAMostrar : tarjetas.get(TipoDeTarjeta.Oro)) {
+                System.out.println("   * " + indicador + ": " + tarjetaAMostrar.getNumTarjeta());
+                indicador++;
+            }
+        }
+
+
     }
 
 }

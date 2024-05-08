@@ -25,4 +25,8 @@ public class Tarjeta {
         this.ultimoMovimiento = LocalDateTime.now();
         this.saldo = saldo;
     }
+
+    public String getNumTarjeta() {
+        return numTarjeta;
+    }
 }
