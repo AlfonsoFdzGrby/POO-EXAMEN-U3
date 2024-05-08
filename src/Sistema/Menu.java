@@ -206,6 +206,7 @@ public class Menu {
                 Usuario usuario = Usuario.buscarUsuario();
                 if(usuario instanceof Cliente){
                     cliente = (Cliente)usuario;
+                    break;
                 }else{
                     System.out.println("El usuario especificado no es un cliente");
                     System.out.println("Por favor ingrese un cliente válido");
@@ -249,6 +250,7 @@ public class Menu {
                 Usuario usuario = Usuario.buscarUsuario();
                 if(usuario instanceof Cliente){
                     cliente = (Cliente)usuario;
+                    break;
                 }else{
                     System.out.println("El usuario especificado no es un cliente");
                     System.out.println("Por favor ingrese un cliente válido");
