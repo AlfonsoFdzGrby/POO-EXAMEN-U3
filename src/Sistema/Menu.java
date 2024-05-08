@@ -169,7 +169,7 @@ public class Menu {
 
         Tarjeta tarjeta = null;
 
-        /* TODO: QUITAR CÓDIGO DE MÁS, SÓLO SE PUEDEN CREAR TARJETAS DE CRÉDITO Y 
+        /* TODO: QUITAR CÓDIGO DE MÁS, SÓLO SE PUEDEN CREAR TARJETAS DE DÉBITO Y 
          * ACTUALIZAR A CRÉDITO. NO SE PUEDEN CREAR TARJETAS DE CRÉDITO */ 
 
         System.out.println("Ingrese el tipo de tarjeta que desea:");
