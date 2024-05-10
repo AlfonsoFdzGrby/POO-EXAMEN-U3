@@ -81,19 +81,11 @@ public class Menu {
                 }else if(usuarioEnSesion.getUsuarioActual() instanceof Inversionista){
                     menuInversionista();
                 }else{
-                    // Le quise poner un switch Lambda pero me puso caprichos ésta madre
+                    // Ya le pude poner el switch lambda pero no lo he calado jsjs
                     switch (usuarioEnSesion.getUsuarioActual().getRol()) {
-                        case Rol.Gerente:
-                            menuGerente();
-                            break;
-
-                        case Rol.Ejecutivo:
-                            menuEjecutivo();
-                            break;
-
-                        default:
-                            menuCapturista();
-                            break;
+                        case Gerente -> menuGerente();
+                        case Ejecutivo -> menuEjecutivo();
+                        default -> menuCapturista();
                     }
                 }
                 break;
