@@ -64,18 +64,19 @@ public abstract class Usuario {
             String nombreUsuario = sc.nextLine();
 
             for (ArrayList<Usuario> usuarios : SucursalActual.getInstancia().getSucursalActual().usuarios.values()) {
+                NombreSucursal sucursal = SucursalActual.getInstancia().getSucursalActual().getNombre();
                 for (Usuario usuarioABuscar : usuarios) {
-                    if(usuarioABuscar.getNombreUsuario().equals(nombreUsuario)){
+                    if(usuarioABuscar.getNombreUsuario().equals(nombreUsuario) && usuarioABuscar.getSucursal().equals(sucursal)){
                         usuario = usuarioABuscar;
                     }
                 }
             }
 
-            if (usuario.sucursal.equals(SucursalActual.getInstancia().getSucursalActual().getNombre())) {
+            if (usuario!=null) {
                 System.out.println("¡Usuario encontrado!");
                 break;
             } else {
-                System.out.println("Usuario no encontrado!");
+                System.out.println("Usuario no encontrado");
             }
         }
         return usuario;
