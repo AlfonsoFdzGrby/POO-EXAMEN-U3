@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Usuarios.util.*;
+import Usuarios.util.Tarjeta.Tarjeta;
 import Usuarios.*;
 
 public class Sucursal {
@@ -12,6 +13,7 @@ public class Sucursal {
     Empleado gerente;
 
     public static HashMap<Rol, ArrayList<Usuario>> usuarios = new HashMap<>();
+    public static ArrayList<Tarjeta> tarjetasActualizar = new ArrayList<>();
 
     public Sucursal(NombreSucursal nombre) {
         this.nombre = nombre;

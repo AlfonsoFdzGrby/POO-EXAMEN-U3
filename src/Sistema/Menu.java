@@ -159,6 +159,7 @@ public class Menu {
     /* Los capturistas al parecer sólo deben de hacer operaciones sobre los Ejecutivos XDD 
      * Y los ejecutivos son los que deben hacer el CRUD de los clientes, etc.
     */
+
     private static void menuCapturista(){
         Tools.printHeader("CAPTURISTA");
         System.out.println("Seleccione una opción:");
@@ -233,14 +234,12 @@ public class Menu {
             double deposito = Tools.nextDouble();
             tarjeta = new Tarjeta(TipoDeTarjeta.Debito, deposito , sucursalActual.getSucursalActual().getNombre());
             cliente.agregarTarjeta(TipoDeTarjeta.Debito, tarjeta);
-            //usuarioEnSesion.setUsuario(cliente);
 
             System.out.println("¡Su tarjeta ha sido creada exitosamente!");
         }
         Tools.next();
     }
     
-
     private static void consultarTarjetas(boolean asksforUser){
         Tools.printHeader("CONSULTAR TARJETAS");
         Cliente cliente = null;
@@ -292,116 +291,36 @@ public class Menu {
                 case 1 -> {
                     tarjeta = cliente.getDebito();
                     Tools.printHeader("RETIRO - DÉBITO");
-                    
-                    if(tarjeta==null){
-                        System.out.println("   * No hay ninguna tarjeta de débito registrada");
-                    }else{
-                        System.out.println("Número de tarjeta: " + tarjeta.getNumTarjeta());
-                        System.out.printf("      - Saldo: $%.2f\n", tarjeta.getSaldo());
-                        while(true){
-
-                            if(tarjeta.getSaldo()<=0){
-                                System.out.println("Cuenta sin fondos");
-                                System.out.println("Realice un depósito antes de continuar");
-                                Tools.next();
-                                break;
-                            }
-
-                            System.out.print("Ingrese la cantidad a retirar: ");
-                            double cantidad = Tools.nextDouble();
-
-                            if(cantidad>0 || cantidad<tarjeta.getSaldo()){
-                                tarjeta.realizarRetiro(cantidad);
-                                System.out.println("¡El retiro se ha hecho exitosamente!");
-                                break;
-                            }else{
-                                System.out.println("La cantidad especificada no es válida");
-                            }
-                        }
-                        //usuarioEnSesion.setUsuario(cliente);
-                    }
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta de débito registrada");
+                    else retirar(tarjeta);
                 }
 
                 case 2 -> {
                     tarjeta = cliente.getSimplicity();
                     Tools.printHeader("RETIRO - SIMPLICITY");
-
-                    if(tarjeta==null){
-                        System.out.println("   * No hay ninguna tarjeta Simplicity registrada");
-                    }else{
-                        System.out.println("TARJETA:");
-                        System.out.println("   * Número: " + tarjeta.getNumTarjeta());
-                        System.out.printf("      - Saldo: $%.2f\n", tarjeta.getSaldo());
-
-                        System.out.print("Ingrese la cantidad a retirar: ");
-                        double cantidad = Tools.nextDouble();
-                        if(cantidad>0 || cantidad<tarjeta.getSaldo()){
-                            tarjeta.realizarRetiro(cantidad);
-                            System.out.println("¡El retiro se ha hecho exitosamente!");
-                            break;
-                        }else{
-                            System.out.println("La cantidad especificada no es válida");
-                        }
-
-                    }
-                    //usuarioEnSesion.setUsuario(cliente);
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta Simplicity registrada");
+                    else retirar(tarjeta);
                 }
 
                 case 3 -> {
                     tarjeta = cliente.getPlatino();
                     Tools.printHeader("RETIRO - PLATINO");
-
-                    if(tarjeta==null){
-                        System.out.println("   * No hay ninguna tarjeta Platino registrada");
-                    }else{
-                        System.out.println("TARJETA:");
-                        System.out.println("   * Número: " + tarjeta.getNumTarjeta());
-                        System.out.printf("      - Saldo: $%.2f\n", tarjeta.getSaldo());
-
-                        System.out.print("Ingrese la cantidad a retirar: ");
-                        double cantidad = Tools.nextDouble();
-                        if(cantidad>0 || cantidad<tarjeta.getSaldo()){
-                            tarjeta.realizarRetiro(cantidad);
-                            System.out.println("¡El retiro se ha hecho exitosamente!");
-                            break;
-                        }else{
-                            System.out.println("La cantidad especificada no es válida");
-                        }
-
-                    }
-                    //usuarioEnSesion.setUsuario(cliente);
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta Platino registrada");
+                    else retirar(tarjeta);
                 }
 
                 case 4 -> {
                     tarjeta = cliente.getSimplicity();
                     Tools.printHeader("RETIRO - ORO");
-
-                    if(tarjeta==null){
-                        System.out.println("   * No hay ninguna tarjeta Oro registrada");
-                    }else{
-                        System.out.println("TARJETA:");
-                        System.out.println("   * Número: " + tarjeta.getNumTarjeta());
-                        System.out.printf("      - Saldo: $%.2f\n", tarjeta.getSaldo());
-
-                        System.out.print("Ingrese la cantidad a retirar: ");
-                        double cantidad = Tools.nextDouble();
-                        if(cantidad>0 || cantidad<tarjeta.getSaldo()){
-                            tarjeta.realizarRetiro(cantidad);
-                            System.out.println("¡El retiro se ha hecho exitosamente!");
-                            break;
-                        }else{
-                            System.out.println("La cantidad especificada no es válida");
-                        }
-
-                    }
-                    //usuarioEnSesion.setUsuario(cliente);
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta Oro registrada");
+                    else retirar(tarjeta);
                 }
             }
         }
         Tools.next();
     }
 
-    // ---------------------------------------- MENÚS FUNCIONES ----------------------------------------
+    // ---------------------------------------- DEPOSITAR DINERO ----------------------------------------
 
     private static void realizarDeposito(){
         Cliente cliente = (Cliente)usuarioEnSesion.getUsuarioActual();
@@ -421,54 +340,103 @@ public class Menu {
             int opc = Tools.nextInt();
             switch (opc) {
                 case 1 -> {
+                    tarjeta = cliente.getDebito();
                     Tools.printHeader("DEPÓSITO - DEBITO");
-                    if(cliente.getDebito()==null){
-                        System.out.println("   * No hay ninguna tarjeta de débito registrada");
-                    }else{
-                        tarjeta = cliente.getDebito();
-                        System.out.println("Número de tarjeta: " + tarjeta.getNumTarjeta());
-                        System.out.printf("Saldo: $%.2f\n", + tarjeta.getSaldo());
-
-                        while(true){
-                            System.out.print("Ingrese la cantidad a depositar: ");
-                            double cantidad = Tools.nextDouble();
-                            if(cantidad>0){
-                                tarjeta.realizarDeposito(cantidad);
-                                System.out.println("¡El depósito se ha hecho exitosamente!");
-                                break;
-                            }else{
-                                System.out.println("La cantidad especificada no es válida");
-                            }
-                        }
-                        //usuarioEnSesion.setUsuario(cliente);
-                    }
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta de débito registrada");
+                    else depositar(tarjeta);
                 }
-                case 2 -> {
-                    Tools.printHeader("DEPÓSITO - SIMPLICITY");
-                    if(cliente.getSimplicity()==null){
-                        System.out.println("   * No hay ninguna tarjeta de débito registrada");
-                    }else{
-                        tarjeta = cliente.getSimplicity();
-                        System.out.println("Número de tarjeta: " + tarjeta.getNumTarjeta());
-                        System.out.printf("Saldo: $%.2f\n", + tarjeta.getSaldo());
 
-                        while(true){
-                            System.out.print("Ingrese la cantidad a depositar: ");
-                            double cantidad = Tools.nextDouble();
-                            if(cantidad>0){
-                                tarjeta.realizarDeposito(cantidad);
-                                System.out.println("¡El depósito se ha hecho exitosamente!");
-                                break;
-                            }else{
-                                System.out.println("La cantidad especificada no es válida");
-                            }
-                        }
-                        //usuarioEnSesion.setUsuario(cliente);
-                    }
+                case 2 -> {
+                    tarjeta = cliente.getSimplicity();
+                    Tools.printHeader("DEPÓSITO - SIMPLICITY");
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta Simplicity registrada");
+                    else depositar(tarjeta);
+                }
+
+                case 3 -> {
+                    tarjeta = cliente.getPlatino();
+                    Tools.printHeader("DEPÓSITO - PLATINO");
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta Platino registrada");
+                    else depositar(tarjeta);  
+                }
+
+                case 4 -> {
+                    tarjeta = cliente.getOro();
+                    Tools.printHeader("DEPÓSITO - ORO");
+                    if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta Oro registrada");
+                    else depositar(tarjeta);
                 }
             }
             Tools.next();
         }
     }
+
+    // --------------------------------- SUBMÉTODOS PARA RETIRAR Y DEPOSITAR ---------------------------------
+
+    private static void retirar(Tarjeta tarjeta){
+        System.out.println("TARJETA:");
+        System.out.println("   * Número: " + tarjeta.getNumTarjeta());
+        System.out.printf("      - Saldo: $%.2f\n", tarjeta.getSaldo());
+
+        while(true){
+            if(tarjeta.getSaldo()<=0){
+                System.out.println("Cuenta sin fondos");
+                System.out.println("Realice un depósito antes de continuar");
+                Tools.next();
+                break;
+            }
+            System.out.print("Ingrese la cantidad a retirar: ");
+            double cantidad = Tools.nextDouble();
+            if(cantidad>0 || cantidad<tarjeta.getSaldo()){
+                tarjeta.realizarRetiro(cantidad);
+                System.out.println("¡El retiro se ha hecho exitosamente!");
+                break;
+            }else{
+                System.out.println("La cantidad especificada no es válida");
+            }
+        }
+    }
+
+    private static void depositar(Tarjeta tarjeta){
+        System.out.println("TARJETA:");
+        System.out.println("   * Número: " + tarjeta.getNumTarjeta());
+        System.out.printf("      - Saldo: $%.2f\n", + tarjeta.getSaldo());
+
+        while(true){
+            System.out.print("Ingrese la cantidad a depositar: ");
+            double cantidad = Tools.nextDouble();
+            if(cantidad>0){
+                tarjeta.realizarDeposito(cantidad);
+                System.out.println("¡El depósito se ha hecho exitosamente!");
+                break;
+            }else{
+                System.out.println("La cantidad especificada no es válida");
+            }
+        }
+    }
+
+    // --------------------------------- SOLICITUD DE ACTUALIZACION ---------------------------------
     
+    private static void solicitarActualizar(){
+        Tarjeta tarjeta = null;
+        Cliente cliente = (Cliente)usuarioEnSesion.getUsuarioActual();
+        Tools.printHeader("SOLICITAR ACTUALIZACIÓN DE TARJETA");
+        System.out.println("Ingrese el tipo de tarjeta que desea actualizar");
+        System.out.println("1. Débito");
+        System.out.println("2. Simplicity");
+        System.out.println("3. Platino");
+        System.out.println("4. Cancelar operación");
+        System.out.print(">> ");
+        int opc = Tools.nextInt();
+        switch (opc) {
+            case 1 -> {
+                tarjeta = cliente.getDebito();
+                Tools.printHeader("DEPÓSITO - DEBITO");
+                if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta de débito registrada");
+                else{
+                    
+                }
+            }
+        }
+    }
 }
