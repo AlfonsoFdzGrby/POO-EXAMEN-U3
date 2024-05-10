@@ -142,15 +142,13 @@ public class Menu {
         while(usuarioEnSesion.getUsuarioActual()!=null){
             Tools.printHeader("INVERSIONISTA");
             System.out.println("Seleccione una opción:");
-            System.out.println("1. Registar ejecutivo");
-            System.out.println("2. Modificar ejecutivo");
-            System.out.println("3. Eliminar ejecutivo");
-            System.out.println("4. Consultar ejecutivo");
-            System.out.println("5. Cerrar sesión");
+            System.out.println("1. Invertir");
+            System.out.println("2. Retirar dinero");
+            System.out.println("3. Cerrar sesión");
             System.out.print(">> ");
             opc = Tools.nextInt();
             switch (opc) {
-                case 5 -> usuarioEnSesion.setUsuario(null);
+                case 3 -> usuarioEnSesion.setUsuario(null);
             }
         }
         
@@ -173,9 +171,10 @@ public class Menu {
             System.out.println("1. Registrar Cliente");
             System.out.println("2. Modificar Cliente");
             System.out.println("3. Eliminar Cliente");
+            System.out.println("4. Mostrar solicitudes pendientes");
             // 3 opciones: Información de un sólo cliente, información de todos los clientes, e información propia
-            System.out.println("4. Mostrar información");
-            System.out.println("5. Cerrar sesión");
+            System.out.println("5. Mostrar información");
+            System.out.println("6. Cerrar sesión");
             System.out.print(">> ");
 
             opc = Tools.nextInt();
@@ -184,8 +183,9 @@ public class Menu {
                 //case 1 -> registrarUsuario();
                 //case 2 -> modificarUsuario();
                 //case 3 -> eliminarUsuario();
-                //case 4 -> mostrarInformacion();
-                case 5 -> usuarioEnSesion.setUsuario(null);
+                //case 4 -> mostrarSolicitudes();
+                //case 5 -> mostrarInformacion();
+                case 6 -> usuarioEnSesion.setUsuario(null);
             }
         }
         
@@ -442,7 +442,7 @@ public class Menu {
                     System.out.println("   * Su tarjeta de débito puede ser actualizada a Simplicity");
                     System.out.println("   * Las solicitudes de actualización deben ser aprobadas por");
                     System.out.println("     un ejecutivo de cuenta o gerente, por lo que el tiempo");
-                    System.out.println("       de espera es indefinido");
+                    System.out.println("     de espera es indefinido");
                     System.out.println("¿Desea solicitar una actualización de tarjeta? (s/n)");
                     System.out.print(">> ");
                     char yOrN = sc.nextLine().charAt(0);
@@ -470,7 +470,7 @@ public class Menu {
                     System.out.println("   * Su tarjeta de débito puede ser actualizada a Platino");
                     System.out.println("   * Las solicitudes de actualización deben ser aprobadas por");
                     System.out.println("     un ejecutivo de cuenta o gerente, por lo que el tiempo");
-                    System.out.println("       de espera es indefinido");
+                    System.out.println("     de espera es indefinido");
                     System.out.println("¿Desea solicitar una actualización de tarjeta? (s/n)");
                     System.out.print(">> ");
                     char yOrN = sc.nextLine().charAt(0);
@@ -498,7 +498,7 @@ public class Menu {
                     System.out.println("   * Su tarjeta de débito puede ser actualizada a Oro");
                     System.out.println("   * Las solicitudes de actualización deben ser aprobadas por");
                     System.out.println("     un ejecutivo de cuenta o gerente, por lo que el tiempo");
-                    System.out.println("       de espera es indefinido");
+                    System.out.println("     de espera es indefinido");
                     System.out.println("¿Desea solicitar una actualización de tarjeta? (s/n)");
                     System.out.print(">> ");
                     char yOrN = sc.nextLine().charAt(0);
