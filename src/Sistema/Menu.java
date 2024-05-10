@@ -131,7 +131,7 @@ public class Menu {
                 case 3 -> realizarRetiro();
                 case 4 -> realizarDeposito();
                 case 5 -> consultarDatos();
-                case 6 -> {} //solicitarActualizar();
+                case 6 -> solicitarActualizar();
                 case 7 -> usuarioEnSesion.setUsuario(null);
             }
         }
@@ -430,12 +430,87 @@ public class Menu {
         int opc = Tools.nextInt();
         switch (opc) {
             case 1 -> {
+                Tools.printHeader("ACTUALIZAR - DEBITO");
                 tarjeta = cliente.getDebito();
-                Tools.printHeader("DEPÓSITO - DEBITO");
-                if(tarjeta==null) System.out.println("   * No hay ninguna tarjeta de débito registrada");
-                else{
-                    
+
+                if(tarjeta==null){
+                    System.out.println("   * No hay ninguna tarjeta de débito registrada");
+                }else if(tarjeta.getSaldo()<50000){
+                    System.out.println("   * Se necesita de un saldo mayor o igual a $50,000 para");
+                    System.out.println("     continuar con esta operación");
+                }else{
+                    System.out.println("   * Su tarjeta de débito puede ser actualizada a Simplicity");
+                    System.out.println("   * Las solicitudes de actualización deben ser aprobadas por");
+                    System.out.println("     un ejecutivo de cuenta o gerente, por lo que el tiempo");
+                    System.out.println("       de espera es indefinido");
+                    System.out.println("¿Desea solicitar una actualización de tarjeta? (s/n)");
+                    System.out.print(">> ");
+                    char yOrN = sc.nextLine().charAt(0);
+
+                    if(Tools.AskForYesOrNo(yOrN)){
+                        SucursalActual.getInstancia().getSucursalActual().agregarSolicitud(new Solicitud(cliente, TipoDeTarjeta.Simplicity, tarjeta.getSaldo(), cliente.getId()));
+                        System.out.println("Su actualización de tarjeta ha sido solicitada");
+                    }else{
+                        System.out.println("No se ha realizado ninguna solicitud");
+                    }
                 }
+                Tools.next();
+            }
+
+            case 2 -> {
+                Tools.printHeader("ACTUALIZAR - SIMPLICITY");
+                tarjeta = cliente.getSimplicity();
+
+                if(tarjeta==null){
+                    System.out.println("   * No hay ninguna tarjeta Simplicity registrada");
+                }else if(tarjeta.getSaldo()<100000){
+                    System.out.println("   * Se necesita de un saldo mayor o igual a $100,000 para");
+                    System.out.println("     continuar con esta operación");
+                }else{
+                    System.out.println("   * Su tarjeta de débito puede ser actualizada a Platino");
+                    System.out.println("   * Las solicitudes de actualización deben ser aprobadas por");
+                    System.out.println("     un ejecutivo de cuenta o gerente, por lo que el tiempo");
+                    System.out.println("       de espera es indefinido");
+                    System.out.println("¿Desea solicitar una actualización de tarjeta? (s/n)");
+                    System.out.print(">> ");
+                    char yOrN = sc.nextLine().charAt(0);
+
+                    if(Tools.AskForYesOrNo(yOrN)){
+                        SucursalActual.getInstancia().getSucursalActual().agregarSolicitud(new Solicitud(cliente, TipoDeTarjeta.Platino, tarjeta.getSaldo(), cliente.getId()));
+                        System.out.println("Su actualización de tarjeta ha sido solicitada");
+                    }else{
+                        System.out.println("No se ha realizado ninguna solicitud");
+                    }
+                }
+                Tools.next();
+            }
+
+            case 3 -> {
+                Tools.printHeader("ACTUALIZAR - PLATINO");
+                tarjeta = cliente.getPlatino();
+
+                if(tarjeta==null){
+                    System.out.println("   * No hay ninguna tarjeta Platino registrada");
+                }else if(tarjeta.getSaldo()<200000){
+                    System.out.println("   * Se necesita de un saldo mayor o igual a $200,000 para");
+                    System.out.println("     continuar con esta operación");
+                }else{
+                    System.out.println("   * Su tarjeta de débito puede ser actualizada a Oro");
+                    System.out.println("   * Las solicitudes de actualización deben ser aprobadas por");
+                    System.out.println("     un ejecutivo de cuenta o gerente, por lo que el tiempo");
+                    System.out.println("       de espera es indefinido");
+                    System.out.println("¿Desea solicitar una actualización de tarjeta? (s/n)");
+                    System.out.print(">> ");
+                    char yOrN = sc.nextLine().charAt(0);
+
+                    if(Tools.AskForYesOrNo(yOrN)){
+                        SucursalActual.getInstancia().getSucursalActual().agregarSolicitud(new Solicitud(cliente, TipoDeTarjeta.Oro, tarjeta.getSaldo(), cliente.getId()));
+                        System.out.println("Su actualización de tarjeta ha sido solicitada");
+                    }else{
+                        System.out.println("No se ha realizado ninguna solicitud");
+                    }
+                }
+                Tools.next();
             }
         }
     }

@@ -53,4 +53,14 @@ public class Tools {
         }
         return exito;
     }
+
+    public static boolean AskForYesOrNo(char opc){
+        boolean answer = false;
+        switch (Character.toLowerCase(opc)) {
+            case 'y' -> answer = true;
+            case 's' -> answer = true;
+            default -> answer = false;
+        }
+        return answer;
+    }
 }

@@ -13,6 +13,8 @@ import Sistema.util.*;
 
 public class Cliente extends Usuario {
     private static Scanner sc = new Scanner(System.in);
+    private static int nextID = 0;
+    private int id;
     private String rfc;
     private String curp;
     private String direccion;
@@ -26,6 +28,8 @@ public class Cliente extends Usuario {
         this.fechaRegistro = LocalDate.now();
         this.sucursal = sucursal;
         this.curp = Generators.GenerateCURP(nombre, apellidos, fechaRegistro, eshombre, estado);
+        this.id = nextID;
+        nextID++;
         tarjetas.put(TipoDeTarjeta.Simplicity, null);
         tarjetas.put(TipoDeTarjeta.Platino, null);
         tarjetas.put(TipoDeTarjeta.Oro, null);
@@ -64,6 +68,10 @@ public class Cliente extends Usuario {
         SucursalActual.getInstancia().getSucursalActual().agregarUsuario(Rol.Cliente, cliente);
 
         System.out.println("\n== CLIENTE REGISTRADO EXITOSAMENTE! ==\n");
+    }
+
+    public int getId() {
+        return id;
     }
 
     public static void imprimirClientes(){
