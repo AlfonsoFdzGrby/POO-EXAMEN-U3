@@ -12,6 +12,8 @@ public class Solicitud {
     private double fondos;
     private StatusDeSolicitud status;
     private int idCliente;
+    private static int nextID = 1;
+    private int id;
 
     public Solicitud(Cliente cliente, TipoDeTarjeta tipoDeTarjeta, double fondos, int idCliente) {
         this.cliente = cliente;
@@ -20,10 +22,8 @@ public class Solicitud {
         this.idCliente = idCliente;
         this.status = StatusDeSolicitud.EnProceso;
         this.fecha = LocalDate.now();
-    }
-
-    public int getId(){
-        return idCliente;
+        this.id = nextID;
+        nextID++;
     }
 
     public Cliente getCliente(){
@@ -32,6 +32,10 @@ public class Solicitud {
 
     public StatusDeSolicitud getStatus(){
         return status;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public void rechazarSolicitud(){
@@ -49,7 +53,7 @@ public class Solicitud {
     }
 
     public String toString(){
-        return String.format("Cliente: %s\n * Tipo de tarjeta: %s\n * Status de solicitud: %s\n * Id del Cliente: %d\n",this.cliente,this.tipoDeTarjeta.toString(),this.status.toString(),this.idCliente);
+        return String.format("Cliente: %s\n * Tipo de tarjeta: %s\n * Status de solicitud: %s\n * Id del Cliente: %d\n * Id de la solicitud: %d",this.cliente,this.tipoDeTarjeta.toString(),this.status.toString(),this.idCliente, this.id);
     }
     
     public static void printSolicitudes(){

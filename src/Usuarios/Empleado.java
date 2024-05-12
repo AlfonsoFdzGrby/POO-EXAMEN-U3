@@ -110,7 +110,7 @@ public class Empleado extends Usuario {
             return;
         }
         while (true) {
-            System.out.println("Ingrese la solicitud que desea manejar: (Ingrese el id del cliente)");
+            System.out.println("Ingrese la solicitud que desea manejar: (Ingrese el id de la solicitud)");
             System.out.print(">> ");
             int id = Tools.nextInt();
             index = Tools.encontrarSolicitud(id);
