@@ -44,11 +44,12 @@ public class Solicitud {
         SucursalActual.getInstancia().getSucursalActual().solicitudesActualizacion.get(index)
         .cliente.agregarTarjeta(tipoTarjeta, new Tarjeta(tipoTarjeta, (tipoTarjeta == TipoDeTarjeta.Simplicity) ? 60000 :
         (tipoTarjeta == TipoDeTarjeta.Platino) ? 150000 : 400000  , SucursalActual.getInstancia().getSucursalActual().getNombre()));
+        this.status = StatusDeSolicitud.Aprobada;
         System.out.println("\nSE HA ACEPTADO LA SOLICITUD CORRECTAMENTE!\n");
     }
 
     public String toString(){
-        return String.format("Cliente: %s\n * Tipo de tarjeta: %s\n * Status de solicitud: %s\n Id del Cliente: %d\n",this.cliente,this.tipoDeTarjeta.toString(),this.status.toString(),this.idCliente);
+        return String.format("Cliente: %s\n * Tipo de tarjeta: %s\n * Status de solicitud: %s\n * Id del Cliente: %d\n",this.cliente,this.tipoDeTarjeta.toString(),this.status.toString(),this.idCliente);
     }
     
     public static void printSolicitudes(){

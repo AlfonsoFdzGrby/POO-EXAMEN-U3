@@ -85,6 +85,14 @@ public class Cliente extends Usuario {
         }
     }
 
+    public void verSolicitudes(){
+        for (Solicitud solicitud : SucursalActual.getInstancia().getSucursalActual().solicitudesActualizacion) {
+            if (solicitud.getCliente().nombreUsuario == this.nombreUsuario) {
+                System.out.print(solicitud.toString());
+            }
+        }
+    }
+
     // ---------------------------------------- TARJETAS: GETTERS ----------------------------------------------
 
     public Tarjeta getDebito(){
@@ -138,7 +146,7 @@ public class Cliente extends Usuario {
         if(tarjetas.get(TipoDeTarjeta.Simplicity)==null){
             System.out.println("   * No hay una tarjeta Simplicity registrada");
         }else{
-            System.out.println("   * " + tarjetas.get(TipoDeTarjeta.Debito).toString());
+            System.out.println("   * " + tarjetas.get(TipoDeTarjeta.Simplicity).toString());
         }
 
         if(tarjetas.get(TipoDeTarjeta.Platino)==null){

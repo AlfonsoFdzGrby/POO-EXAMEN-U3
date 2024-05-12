@@ -106,13 +106,16 @@ public class Empleado extends Usuario {
         int index = 0;
         Tools.printHeader("MANEJAR SOLICITUDES");
         Solicitud.printSolicitudes();
+        if (SucursalActual.getInstancia().getSucursalActual().solicitudesActualizacion.isEmpty()) {
+            return;
+        }
         while (true) {
             System.out.println("Ingrese la solicitud que desea manejar: (Ingrese el id del cliente)");
             System.out.print(">> ");
             int id = Tools.nextInt();
             index = Tools.encontrarSolicitud(id);
 
-            if (index == -2) {
+            if (id == -2) {
                 return;
             }
 

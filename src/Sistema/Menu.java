@@ -113,12 +113,14 @@ public class Menu {
             System.out.println("2. Realizar retiro");
             System.out.println("3. Realizar depósito");
             System.out.println("4. Consultar datos personales");
-            System.out.println("5. Mostrar Tarjetas");
             if (cliente.getDebito().getSaldo() >= 50000 && !cliente.haSolicitado) {
-                System.out.println("6. Solicitar actualización de tarjeta");
-                System.out.println("7. Cerrar sesión");    
-            } else {
+                System.out.println("5. Solicitar actualización de tarjeta");
+                System.out.println("6. Cerrar sesión");    
+            } else if (cliente.haSolicitado) {
+                System.out.println("5. Ver Solicitud de Tarjeta");
                 System.out.println("6. Cerrar Sesion");
+            } else {
+                System.out.println("5. Cerrar Sesion");
             }
             System.out.print(">> ");
             
@@ -130,18 +132,27 @@ public class Menu {
                     case 2 -> realizarRetiro();
                     case 3 -> realizarDeposito();
                     case 4 -> consultarDatos();
-                    case 5 -> consultarTarjetas(false);
-                    case 6 -> consultarTarjetas(false);
-                    case 7 -> usuarioEnSesion.setUsuario(null);
+                    case 5 -> solicitarNuevaTarjeta();
+                    case 6 -> usuarioEnSesion.setUsuario(null);
                     default -> System.out.println("\nOpcion incorrecta, intente de nuevo!\n");
                 }    
+            } else if (cliente.haSolicitado) {
+                switch (opc) {
+                    case 1 -> consultarTarjetas(false);
+                    case 2 -> realizarRetiro();
+                    case 3 -> realizarDeposito();
+                    case 4 -> consultarDatos();
+                    case 5 -> cliente.verSolicitudes();
+                    case 6 -> usuarioEnSesion.setUsuario(null);
+                    default -> System.out.println("\nOpcion incorrecta, intente de nuevo!\n");
+                }
             } else {
                 switch (opc) {
                     case 1 -> consultarTarjetas(false);
                     case 2 -> realizarRetiro();
                     case 3 -> realizarDeposito();
                     case 4 -> consultarDatos();
-                    case 6 -> usuarioEnSesion.setUsuario(null);
+                    case 5 -> usuarioEnSesion.setUsuario(null);
                     default -> System.out.println("\nOpcion incorrecta, intente de nuevo!\n");
                 }
             }
@@ -243,7 +254,7 @@ public class Menu {
             System.out.println("4. Manejar solicitudes pendientes");
             System.out.println("5. Mostrar información");
             System.out.println("6. Mostrar movimientos Inversionistas");
-            System.out.println("6. Cerrar sesión");
+            System.out.println("7. Cerrar sesión");
             System.out.print(">> ");
 
             opc = Tools.nextInt();
@@ -530,7 +541,7 @@ public class Menu {
             }
             System.out.print("Ingrese la cantidad a retirar: ");
             double cantidad = Tools.nextDouble();
-            if(cantidad>0 || cantidad<tarjeta.getSaldo()){
+            if(cantidad>0 && cantidad<tarjeta.getSaldo()){
                 tarjeta.realizarRetiro(cantidad);
                 System.out.println("¡El retiro se ha hecho exitosamente!");
                 break;

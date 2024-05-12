@@ -58,16 +58,16 @@ public class Inversionista extends Usuario {
     }
 
     public static void registrarInversionista(){
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ArrayList<String> datosComun = DatosComun.obtenerDatosComun();
         String nombre = datosComun.get(0);
         String apellido = datosComun.get(1);
         LocalDate fechaNacimiento = LocalDate.parse(datosComun.get(2), format);
-        String ciudad = datosComun.get(4);
-        String estado = datosComun.get(5);
-        boolean eshombre = datosComun.get(6).equalsIgnoreCase("hombre");
-        String nombreUsuario = datosComun.get(7);
-        String contrasena = datosComun.get(8);
+        String ciudad = datosComun.get(3);
+        String estado = datosComun.get(4);
+        boolean eshombre = datosComun.get(5).equalsIgnoreCase("hombre");
+        String nombreUsuario = datosComun.get(6);
+        String contrasena = datosComun.get(7);
         SucursalActual.getInstancia().getSucursalActual().usuarios.get(Rol.Inversionista)
         .add(new Inversionista(nombre, apellido, fechaNacimiento, ciudad, estado, eshombre, nombreUsuario, contrasena, SucursalActual.getInstancia().getSucursalActual().getNombre()));
     }
