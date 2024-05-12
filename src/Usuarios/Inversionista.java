@@ -25,6 +25,11 @@ public class Inversionista extends Usuario {
         this.fechaMovimiento = LocalDate.now();
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s   * Fecha de registro: %s\n   * Fecha de último movimiento: %s\n   * Fondos aportados: %.2f\n", super.toString() , this.fechaRegistro.toString(), this.fechaMovimiento.toString(), this.fondosAportados);
+    }
+
     public void inversion(double dinero){
         this.fondosAportados += dinero;
     }
@@ -65,5 +70,12 @@ public class Inversionista extends Usuario {
         String contrasena = datosComun.get(8);
         SucursalActual.getInstancia().getSucursalActual().usuarios.get(Rol.Inversionista)
         .add(new Inversionista(nombre, apellido, fechaNacimiento, ciudad, estado, eshombre, nombreUsuario, contrasena, SucursalActual.getInstancia().getSucursalActual().getNombre()));
+    }
+
+    public static void printInversionistas(){
+        Tools.printHeader("INVERSIONISTAS REGISTRADOS EN LA SUCURSAL");
+        for (Usuario inversionista : SucursalActual.getInstancia().getSucursalActual().usuarios.get(Rol.Inversionista)) {
+            System.out.println(inversionista.toString());
+        }
     }
 }
