@@ -1,7 +1,15 @@
 package Usuarios;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
+import Sistema.util.NombreSucursal;
+import Sistema.util.SucursalActual;
+import Sistema.util.Tools;
+import Usuarios.util.DatosComun;
+import Usuarios.util.Movimientos;
+import Usuarios.util.Rol;
 import Usuarios.util.Usuario;
 
 public class Inversionista extends Usuario {
@@ -10,20 +18,52 @@ public class Inversionista extends Usuario {
     double fondosAportados;
 
     public Inversionista(String nombre, String apellidos, LocalDate fechaDeNacimiento, String ciudad, String estado,
-            boolean eshombre, String nombreUsuario, String contraseña) {
-        super(nombre, apellidos, fechaDeNacimiento, ciudad, estado, eshombre, nombreUsuario, contraseña);
+            boolean eshombre, String nombreUsuario, String contraseña, NombreSucursal sucursal) {
+        super(nombre, apellidos, fechaDeNacimiento, ciudad, estado, eshombre, nombreUsuario, contraseña, Rol.Inversionista, sucursal);
         this.fechaRegistro = LocalDate.now();
         this.fondosAportados = 0;
         this.fechaMovimiento = LocalDate.now();
     }
 
-    public void proveerFondos(double fondos){
-        this.fondosAportados+=fondos;
-        System.out.printf("$%.2f han sido aportados al banco por %s", fondos, getNombreCompleto());
+    public void inversion(double dinero){
+        this.fondosAportados += dinero;
     }
 
-    public void retirarFondos(double fondos){
-        
+    public void retiro(double dinero){
+        this.fondosAportados -= dinero;
     }
-    
+
+    public double getFondosAportados(){
+        return this.fondosAportados;
+    }
+
+    public void printMovimientos(){
+        if (SucursalActual.getInstancia().getSucursalActual().movimientos.isEmpty()) {
+            System.out.println("\nNO HAY MOVIMIENTOS EN EL SISTEMA\n");
+            Tools.next();
+            return;
+        }
+        Tools.printHeader("MOVIMIENTOS");
+        for (Movimientos movimientos : SucursalActual.getInstancia().getSucursalActual().movimientos) {
+            if (movimientos.getNombreInversionista().equalsIgnoreCase(this.getNombreCompleto())) {
+                movimientos.toString();
+            }
+        }
+        Tools.next();
+    }
+
+    public static void registrarInversionista(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        ArrayList<String> datosComun = DatosComun.obtenerDatosComun();
+        String nombre = datosComun.get(0);
+        String apellido = datosComun.get(1);
+        LocalDate fechaNacimiento = LocalDate.parse(datosComun.get(2), format);
+        String ciudad = datosComun.get(4);
+        String estado = datosComun.get(5);
+        boolean eshombre = datosComun.get(6).equalsIgnoreCase("hombre");
+        String nombreUsuario = datosComun.get(7);
+        String contrasena = datosComun.get(8);
+        SucursalActual.getInstancia().getSucursalActual().usuarios.get(Rol.Inversionista)
+        .add(new Inversionista(nombre, apellido, fechaNacimiento, ciudad, estado, eshombre, nombreUsuario, contrasena, SucursalActual.getInstancia().getSucursalActual().getNombre()));
+    }
 }

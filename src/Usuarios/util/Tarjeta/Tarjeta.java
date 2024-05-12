@@ -1,6 +1,5 @@
 package Usuarios.util.Tarjeta;
 
-import Usuarios.*;
 import Sistema.util.*;
 
 import java.time.*;
@@ -21,8 +20,32 @@ public class Tarjeta {
         this.fechaCreacion = LocalDate.now();
         this.cvv = Generators.GenerateCVV();
         this.clabe = Generators.GenerateCLABE(sucursal);
-        this.fechaVencimiento = fechaCreacion.withYear(fechaVencimiento.getYear()+5);
+        this.fechaVencimiento = LocalDate.now().plusYears(5);
         this.ultimoMovimiento = LocalDateTime.now();
         this.saldo = saldo;
     }
+
+    // TODO
+    @Override
+    public String toString() {
+        return String.format(clabe, null);
+    }
+
+    public String getNumTarjeta() {
+        return numTarjeta;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void realizarRetiro(double cantidad){
+        this.saldo -= cantidad;
+    }
+
+    public void realizarDeposito(double cantidad){
+        this.saldo += cantidad;
+    }
+
+    
 }
